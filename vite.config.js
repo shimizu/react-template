@@ -9,16 +9,22 @@ export default defineConfig({
     chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
-        manualChunks: {
-          react: ['react', 'react-dom'],
-          three: ['three'],
-          fiber: ['@react-three/fiber'],
-          drei: ['@react-three/drei'],
-          useControls: ['leva'],
-          postprocessing: ["@react-three/postprocessing"],
-        }
-      }
-    }
+        codeSplitting: {
+          groups: [
+            {
+              name: 'react-vendor',
+              test: /node_modules[\\/]react/,
+              priority: 20,
+            },
+            {
+              name: 'vendor',
+              test: /node_modules/,
+              priority: 10,
+            },
+          ],
+        },
+      },
+    },
   }
 
 
